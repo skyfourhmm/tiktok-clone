@@ -1,24 +1,46 @@
-import logo from './logo.svg';
-import './App.css';
+import { Fragment } from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { publicRouter } from "./router/index";
+import { DefaultLayout } from "../src/layouts";
+import { useContext } from "react";
+import { UserContext } from "./hooks/useContect";
+
 
 function App() {
+
+  const { user } = useContext(UserContext);
+
+  console.log(user)
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div className="App">
+        <Routes>
+          {publicRouter.map((router, index) => {
+            let Layout =  DefaultLayout;
+
+            if(router.layout) {
+              Layout = router.layout
+            } else if (router.layout === null) {
+              Layout = Fragment
+            }
+
+            const Page = router.component;
+            return (
+              <Route
+                key={index}
+                path={router.path}
+                element={
+                  <Layout>
+                    <Page />
+                  </Layout>
+                }
+              />
+            );
+          })}
+        </Routes>
+      </div>
+    </Router>
   );
 }
 

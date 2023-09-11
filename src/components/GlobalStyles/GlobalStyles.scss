@@ -1,0 +1,136 @@
+
+@import 'normalize.css';
+
+:root {
+    --primary: #ff3b5c,
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    font-family: 'TikTokFont', sans-serif;
+    font-size: 1.6rem;
+}
+
+.content {
+    overflow-y: overlay;
+}
+
+.container {
+    position: relative;
+    height: 200vh;
+}
+// font settings
+@font-face {
+    font-family: TikTokFont;
+    src: url('../../../src/assets/fonts/TikTokDisplayFont-Bold.woff2');
+    font-weight: 700;
+}
+
+@font-face {
+    font-family: TikTokFont;
+    src: url('../../../src/assets/fonts/TikTokFont-Bold.woff2');
+    font-weight: 700;
+}
+
+@font-face {
+    font-family: TikTokFont;
+    src: url('../../../src/assets/fonts/TikTokFont-Regular.woff2');
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: TikTokFont;
+    src: url('../../../src/assets/fonts/TikTokFont-Semibold.woff2');
+    font-weight: 600;
+}
+
+
+//--------------------
+.w-361 {
+    width: 361px;
+}
+
+.w-224 {
+    width: 224px;
+}
+
+.w-max-h {
+    max-height: calc(100vh - 176px);
+}
+
+
+// custom glass input 
+.parent-glass:focus-within .children-glass {
+    background-color: rgb(209 213 219);
+    color: #000;
+}
+
+// scroll 
+html *::-webkit-scrollbar {
+    border-radius: 0;
+    width: 8px;
+}
+html *::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: rgba(22, 24, 35, .06);
+}
+html *::-webkit-scrollbar-track {
+    border-radius: 0;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+// active chổ menu sidebar
+.active {
+    color: red;
+}
+
+//  animation close modal
+@keyframes expand {
+    0% {
+      transform: scale(0);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  
+.animate-toggle {
+    animation: expand 0.5s ease-in-out forwards; /* Để lớn lên khi bật */
+}
+
+@keyframes shrink {
+    0% {
+      transform: scale(1);
+    }
+    100% {
+      transform: scale(0);
+    }
+  }
+  
+  .animate-shrink {
+    animation: shrink 0.5s ease-in-out forwards; /* Để nhỏ lại khi tắt */
+  }
+
+// input 
+.input::placeholder {
+    color: red;
+    font-weight: 700;
+    font-size: 18px;
+}
+
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear {
+  display: none;
+}
+
+// style musicIcon
+.fa-music {
+    font-size: 12px;
+} 
