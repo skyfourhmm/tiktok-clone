@@ -12,6 +12,10 @@ function Menu({ children, items = [] , sendCurrentUser}) {
     const handleLogOut = () => {
       const data = false
       sendCurrentUser(data)
+
+      localStorage.removeItem('token')
+      localStorage.removeItem('user')
+      window.location.reload()
     }
 
     const renderItem = () => {

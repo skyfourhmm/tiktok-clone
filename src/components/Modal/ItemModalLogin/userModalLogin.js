@@ -43,10 +43,12 @@ function UserModalLogin({isVisible}) {
     setLoadingApi(true)
     let res = await fetchLogin(emailValue, passwordValue);
     if(res && res.meta){
-      login(res.data)
+      console.log(res.data)
+      localStorage.setItem('user',JSON.stringify(res.data))
       localStorage.setItem("token",res.meta.token)
       navigate('/')
-      // window.location.reload()
+      window.location.reload()
+      login(res.data)
     }
     
     if(res && res.status === 400) {

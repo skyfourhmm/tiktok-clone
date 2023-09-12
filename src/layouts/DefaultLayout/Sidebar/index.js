@@ -25,6 +25,8 @@ function Sidebar() {
       })
     }, [])
 
+    let token = localStorage.getItem('token')
+
   return (
     <Fragment>
     <div className="my-9 ml-4 min-w-[200px] max-w-[250px] h-screen fixed bg-white group">
@@ -56,7 +58,7 @@ function Sidebar() {
         ></MenuItem>
       </Menu>
 
-      {logined ? <div>
+      {!token ? <div>
         <h4 className="text-gray-400 px-3 py-2">Log in to follow creators, like videos, and view comments.</h4>
         <Button outline large onClick={() => setShowModal(true)}>Log in</Button>
       </div>: <div>

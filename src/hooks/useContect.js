@@ -12,7 +12,6 @@ const UserProvider = ({ children }) => {
         data: data,
         auth: true,
       }));
-      localStorage.setItem('data', data )
     //   localStorage.setItem("token",res.meta.token)
 
     };

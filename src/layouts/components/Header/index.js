@@ -105,6 +105,10 @@ function Header() {
     setDatafromMenu(data)
   }
 
+  // tim duoi localstore xem có dữ liệu hay ko 
+  let user = localStorage.getItem('user')
+  let parseUser = JSON.parse(user)
+  let token = localStorage.getItem('token')
   // xử lý ẩn hiện modal 
   const [showModal, setShowModal] = useState(true)
 
@@ -118,7 +122,7 @@ function Header() {
         {/* search */}
         <Search/>
         <div className="flex items-center">
-          {datafromMenu ? (
+          {token ? (
             <>
               <Button upload leftIcon={<FontAwesomeIcon icon={faUpload} />}>
                 Up load
@@ -131,8 +135,8 @@ function Header() {
               </Tippy>
               <Menu items={Menu_User} sendCurrentUser = {sendCurrentUser}>
                   <Image
-                    alt={'nguyen van a'}
-                    src = {'https://p16-sign-va.tiktokcdn.com/tos-maliva-avt-0068/ec3bd3ac8f4db529e561d674fff49765~c5_100x100.jpeg?x-expires=1691398800&x-signature=X5qG%2FTdrswkmyZ9KtxOw8pTzFcE%3D'}
+                    alt={parseUser.email}
+                    src = {parseUser.avatar}
                     small
                   />
               </Menu>
