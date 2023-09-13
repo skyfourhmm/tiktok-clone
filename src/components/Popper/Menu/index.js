@@ -2,19 +2,20 @@ import Tippy from "@tippyjs/react/headless";
 import {Wrapper as PopperWrapper} from "../../Popper/index.js";
 import MenuItems from "./MenuItems.js";
 import Header from "./Header.js";
-import { useState } from "react";
+import { UserContext } from "../../../hooks/useContect.js";
+import { useState, useContext } from "react";
     
 function Menu({ children, items = [] , sendCurrentUser}) {
 
     const [history, setHistory] = useState([{data:items}])
     const current = history[history.length - 1]
-
+    const { logout } = useContext(UserContext);
+ 
     const handleLogOut = () => {
       const data = false
       sendCurrentUser(data)
 
-      localStorage.removeItem('token')
-      localStorage.removeItem('user')
+      logout()
       window.location.reload()
     }
 

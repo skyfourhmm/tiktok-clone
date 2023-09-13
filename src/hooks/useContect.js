@@ -12,8 +12,6 @@ const UserProvider = ({ children }) => {
         data: data,
         auth: true,
       }));
-    //   localStorage.setItem("token",res.meta.token)
-
     };
   
     // Logout updates the user data to default
@@ -23,7 +21,6 @@ const UserProvider = ({ children }) => {
         auth: false,
       }));
       localStorage.removeItem('token')
-      localStorage.removeItem('data')
     };
   
     return (

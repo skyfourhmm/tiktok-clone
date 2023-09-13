@@ -17,7 +17,8 @@ import {
 } from "@fortawesome/free-regular-svg-icons";
 import {MessageIcon, InboxIcon} from "../../../../src/components/Icons/index.js";
 
-import React, {  Fragment, useState } from "react";
+import React, {  Fragment, useState , useContext} from "react";
+import { UserContext } from "../../../hooks/useContect.js";
 import {Link} from 'react-router-dom'
 import Tippy from "@tippyjs/react";
 import 'tippy.js/dist/tippy.css'; 
@@ -105,10 +106,9 @@ function Header() {
     setDatafromMenu(data)
   }
 
-  // tim duoi localstore xem có dữ liệu hay ko 
-  let user = localStorage.getItem('user')
-  let parseUser = JSON.parse(user)
-  let token = localStorage.getItem('token')
+  // lấy dữ liệu xem có dữ liệu hay ko 
+  const { user } = useContext(UserContext);
+
   // xử lý ẩn hiện modal 
   const [showModal, setShowModal] = useState(true)
 
@@ -122,7 +122,7 @@ function Header() {
         {/* search */}
         <Search/>
         <div className="flex items-center">
-          {token ? (
+          {user.auth ? (
             <>
               <Button upload leftIcon={<FontAwesomeIcon icon={faUpload} />}>
                 Up load
@@ -135,8 +135,8 @@ function Header() {
               </Tippy>
               <Menu items={Menu_User} sendCurrentUser = {sendCurrentUser}>
                   <Image
-                    alt={parseUser.email}
-                    src = {parseUser.avatar}
+                    alt={user.data.email}
+                    src = {user.data.data.avatar}
                     small
                   />
               </Menu>

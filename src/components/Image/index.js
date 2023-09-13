@@ -22,7 +22,7 @@ const Image = forwardRef(({src, alt, small = false, large = false, ...props}, re
       <div className={classBase} ref={ref}>
         <img
           className="w-full object-cover h-full"
-          src={ failBack || src}
+          src={ failBack || src }
           alt={alt}
           {...props}
           onError={handleChangeImage}

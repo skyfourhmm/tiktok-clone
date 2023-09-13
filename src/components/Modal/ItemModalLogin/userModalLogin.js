@@ -1,7 +1,7 @@
 import Button from "../../Button";
 import FooterModal from "../footerModal";
 import Input from "../../Input";
-import { useEffect, useState, useContext } from "react";
+import {  useState, useContext } from "react";
 import { CloseEyeIcon, OpentEyeIcon } from "../../Icons";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -10,7 +10,6 @@ import { useNavigate } from "react-router-dom";
 
 import { UserContext } from "../../../hooks/useContect";
 import { fetchLogin } from "../../../apiServices/userServices.js";
-import ModalLogIn from "../modalLogIn";
 
 function UserModalLogin({isVisible}) {
   const navigate = useNavigate()
@@ -35,6 +34,12 @@ function UserModalLogin({isVisible}) {
     setEye(prev => !prev)
   }
 
+  const handleKeyPress = (event) => {
+    if (event.key === 'Enter') {    
+      handleLogin();
+    }
+  }
+
   const handleLogin = async () => {
     if(!emailValue || !passwordValue) {
       // thông báo
@@ -43,8 +48,6 @@ function UserModalLogin({isVisible}) {
     setLoadingApi(true)
     let res = await fetchLogin(emailValue, passwordValue);
     if(res && res.meta){
-      console.log(res.data)
-      localStorage.setItem('user',JSON.stringify(res.data))
       localStorage.setItem("token",res.meta.token)
       navigate('/')
       window.location.reload()
@@ -57,6 +60,7 @@ function UserModalLogin({isVisible}) {
 
     setLoadingApi(false)
   }
+
 
   return (
     <div className="flex flex-col items-center">
@@ -86,6 +90,7 @@ function UserModalLogin({isVisible}) {
           large
           disabled={!(!!emailValue && !!passwordValue)}
           onClick={handleLogin}
+          onKeyDown={handleKeyPress}
         >
           {loadingApi ? <FontAwesomeIcon icon={faCircleNotch} className="animate-spin" /> :'Log in'}
         </Button>

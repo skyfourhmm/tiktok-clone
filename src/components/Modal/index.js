@@ -1,6 +1,9 @@
 import {  Fragment, useEffect, useState } from "react";
 import { CloseIcon, BackIcon } from "../../../src/components/Icons/index";
 
+import { useContext } from "react";
+import { UserContext } from "../../hooks/useContect";
+
 function Modal({
   isVisible = false,
   onClose,
@@ -10,14 +13,8 @@ function Modal({
   sethideback,
 }) {
   const [hideAnimation, setHideAnimation] = useState(false)
-  const [isLogin, setIsLogin] = useState(false)
-   
-  useEffect( () => {
-    let token = localStorage.getItem('token')
-    if(token) {
-      setIsLogin(true)
-    }
-  }, [])
+  const { user } = useContext(UserContext);
+
 
   if (!isVisible) return null;
 
@@ -40,7 +37,7 @@ function Modal({
 
   return (
     <Fragment>
-      {isLogin ?  <></> : (<div className="fixed inset-0 bg-black bg-opacity-40 z-50 flex items-center justify-center">
+      {user.auth ?  <></> : (<div className="fixed inset-0 bg-black bg-opacity-40 z-50 flex items-center justify-center">
       <div className={hideAnimation ? 'w-[450px] bg-white rounded-lg flex flex-col h-4/5 relative animate-shrink' :'w-[450px] bg-white rounded-lg flex flex-col h-4/5 relative animate-toggle'}>
         <div className="flex justify-between">
           {hideback && (

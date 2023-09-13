@@ -8,4 +8,12 @@ const fetchListVideo = (type ='for-you' , page = 5) => {
     return instance.get(`videos?type=${type}&page=${page}`);
 }
 
-export {fetchLogin, fetchListVideo}
+const fetchUserCurrent = () => {
+   return instance.get('auth/me');
+}
+
+const fetchListFollow = (page = 1) => {
+    return instance.get(`me/followings?page=${page}`)
+}
+
+export {fetchLogin, fetchListVideo, fetchUserCurrent, fetchListFollow}

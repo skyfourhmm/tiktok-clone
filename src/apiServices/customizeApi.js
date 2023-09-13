@@ -2,6 +2,9 @@ import axios from "axios";
 
 const instance = axios.create({
     baseURL: 'https://tiktok.fullstack.edu.vn/api/',
+    headers : {
+      'Authorization': `Bearer ${localStorage.getItem('token')}` 
+    }
 });
 
 instance.interceptors.response.use(function (response) {

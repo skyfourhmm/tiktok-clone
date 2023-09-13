@@ -18,11 +18,11 @@ function Video() {
   // lấy data video
   useEffect(() => {
     const handleRenderListVideo = async () => {
-      let res = await fetchListVideo('for-you', currentPage);
+      let res = await fetchListVideo('for-you', 1);
       setListVideo(res);
     };
     handleRenderListVideo();
-  }, [currentPage]);
+  }, []);
 
   const getVideo = () => {
     setCurrentPage(prev => prev+1)

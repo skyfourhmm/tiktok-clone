@@ -4,28 +4,30 @@ import config from "../../../config";
 import * as followingServices from '../../../../src/apiServices/followingServices'
 import AccountItem from "../../../components/AccountItem/AccountItem";
 import ModalLogIn from '../../../../src/components/Modal/modalLogIn'
+import { UserContext } from "../../../hooks/useContect";
 
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useEffect, useState, useContext } from "react";
 import Button from "../../../components/Button";
 import {ForYouIcon, FollowingIcon, ExploreIcon, LiveIcon, ForYouIconActive, FollowingIconActive, ExploreIconActive, LiveIconActive} from '../../../../src/components/Icons/index.js'
+import { fetchListFollow } from "../../../apiServices/userServices.js";
 
 
 function Sidebar() {
     const [following, setFollowing] = useState([])
-    const [logined, setLogined] = useState(true)
     const [showModal, setShowModal] = useState(false)
 
     useEffect( () => {
-
-      followingServices.getFollowing({page : 1, perPage: 10}).then(data => {
-        setFollowing(data)
-      })
-      .catch( (error) => {
-        console.log(error)
-      })
+      const handleRenderListFollowing = async () => {
+        let res = await fetchListFollow(1)
+        if(res && res.status === 401) {
+          return
+        }
+        setFollowing(res.data)
+      }
+      handleRenderListFollowing()
     }, [])
 
-    let token = localStorage.getItem('token')
+    const { user } = useContext(UserContext);
 
   return (
     <Fragment>
@@ -58,7 +60,7 @@ function Sidebar() {
         ></MenuItem>
       </Menu>
 
-      {!token ? <div>
+      {!user.auth ? <div>
         <h4 className="text-gray-400 px-3 py-2">Log in to follow creators, like videos, and view comments.</h4>
         <Button outline large onClick={() => setShowModal(true)}>Log in</Button>
       </div>: <div>
