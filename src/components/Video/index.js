@@ -6,7 +6,6 @@ import VideoInfor from './VideoInfo'
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 function Video() {
-  const [isClient, setIsClient] = useState(false); 
 
   // ấn xuống sẽ thực hiện scroll theo
   useEffect(() => {
@@ -19,6 +18,9 @@ function Video() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [page, setPage] = useState(1);
+  
+  const [isClient, setIsClient] = useState(false); 
+
 
   useEffect(() => {
     setIsClient(true);

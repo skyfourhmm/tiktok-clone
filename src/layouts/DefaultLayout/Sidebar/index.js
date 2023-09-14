@@ -12,25 +12,45 @@ import { fetchListFollow } from "../../../apiServices/userServices.js";
 
 
 function Sidebar() {
-    const [following, setFollowing] = useState([])
     const [showModal, setShowModal] = useState(false)
-    const [hideShowMore, setHidenShowMore] = useState(12)
     const [showMore, setShowMore] = useState(1)
+    const [isHideShowMore, setisHideShowMore] = useState(false)
+    
+    const [userFollowing, setUserFollowing] = useState([]);
+    const [error, setError] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
 
-    useEffect( () => {
-      const handleRenderListFollowing = async () => {
-        let res = await fetchListFollow(showMore)
-        if(res && res.status === 401) {
-          return
-        }
-        setHidenShowMore(res.meta.pagination.total)
-        setFollowing(prev => [...prev,...res.data])
+    const [isClient, setIsClient] = useState(false); 
+    useEffect(() => {
+      setIsClient(true);
+    }, []);
+
+    const fetchData = async () => {
+      setIsLoading(true);
+      setError(null);
+
+      try {
+        let res = await fetchListFollow(showMore);
+
+
+        setShowMore(prev => prev + 1)
+        setUserFollowing(prevItems => [...prevItems, ...res.data]);
+        setisHideShowMore(userFollowing.length === res.meta.pagination.total)
+      } catch(error) {
+        setError(error)
+      } finally {
+        setIsLoading(false)
       }
-      handleRenderListFollowing()
-    }, [showMore])
+    }
+
+    useEffect(() => {
+      if (isClient) {
+        fetchData();
+      }
+    }, [isClient]);
 
     const handlShowMore = () => {
-      setShowMore(prev => prev + 1)
+      fetchData()
     }
 
     const { user } = useContext(UserContext);
@@ -71,10 +91,10 @@ function Sidebar() {
         <Button outline large onClick={() => setShowModal(true)}>Log in</Button>
       </div>: <div>
         <h4 className="text-gray-400 px-3 py-2">Following accounts</h4>
-        {following.map((itemUser) => {
+        {userFollowing.map((itemUser) => {
             return <AccountItem key={itemUser.id} data={itemUser} />;
         })}
-        {(hideShowMore > 12) && <h4 className="text-red-500 px-3 py-2 font-bold cursor-pointer select-none" onClick={handlShowMore}>See more</h4>}
+        {!isHideShowMore && <h4 className="text-red-500 px-3 py-2 font-bold cursor-pointer select-none" onClick={handlShowMore}>See more</h4>}
       </div>}
       </div>
     </div>
