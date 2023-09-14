@@ -1,7 +1,6 @@
 import Menu from "../../components/Sidebar/Menu/Menu";
 import MenuItem from "../../components/Sidebar/Menu/MenuItem";
 import config from "../../../config";
-import * as followingServices from '../../../../src/apiServices/followingServices'
 import AccountItem from "../../../components/AccountItem/AccountItem";
 import ModalLogIn from '../../../../src/components/Modal/modalLogIn'
 import { UserContext } from "../../../hooks/useContect";
@@ -15,17 +14,24 @@ import { fetchListFollow } from "../../../apiServices/userServices.js";
 function Sidebar() {
     const [following, setFollowing] = useState([])
     const [showModal, setShowModal] = useState(false)
+    const [hideShowMore, setHidenShowMore] = useState(12)
+    const [showMore, setShowMore] = useState(1)
 
     useEffect( () => {
       const handleRenderListFollowing = async () => {
-        let res = await fetchListFollow(1)
+        let res = await fetchListFollow(showMore)
         if(res && res.status === 401) {
           return
         }
-        setFollowing(res.data)
+        setHidenShowMore(res.meta.pagination.total)
+        setFollowing(prev => [...prev,...res.data])
       }
       handleRenderListFollowing()
-    }, [])
+    }, [showMore])
+
+    const handlShowMore = () => {
+      setShowMore(prev => prev + 1)
+    }
 
     const { user } = useContext(UserContext);
 
@@ -68,7 +74,7 @@ function Sidebar() {
         {following.map((itemUser) => {
             return <AccountItem key={itemUser.id} data={itemUser} />;
         })}
-        <h4 className="text-red-500 px-3 py-2 font-bold cursor-pointer select-none">See more</h4>
+        {(hideShowMore > 12) && <h4 className="text-red-500 px-3 py-2 font-bold cursor-pointer select-none" onClick={handlShowMore}>See more</h4>}
       </div>}
       </div>
     </div>

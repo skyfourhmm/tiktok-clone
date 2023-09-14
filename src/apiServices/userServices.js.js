@@ -4,7 +4,7 @@ const fetchLogin = (email, password) => {
     return instance.post("auth/login", {email, password});
 }
 
-const fetchListVideo = (type ='for-you' , page = 5) => {
+const fetchListVideo = (type ='for-you' , page = 3) => {
     return instance.get(`videos?type=${type}&page=${page}`);
 }
 

@@ -3,59 +3,69 @@ import React, { useEffect, useState, useRef } from "react";
 import { fetchListVideo } from "../../apiServices/userServices.js";
 import VideoInfor from './VideoInfo'
 
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 function Video() {
-  const [listVideo, setListVideo] = useState([]);
+  const [isClient, setIsClient] = useState(false); 
 
   // ấn xuống sẽ thực hiện scroll theo
   useEffect(() => {
     document.getElementById("focus").focus();
   }, []);
 
-
-  const [currentPage, setCurrentPage] = useState(1)
-
   // lấy data video
+
+  const [items, setItems] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [page, setPage] = useState(1);
+
   useEffect(() => {
-    const handleRenderListVideo = async () => {
-      let res = await fetchListVideo('for-you', 1);
-      setListVideo(res);
-    };
-    handleRenderListVideo();
+    setIsClient(true);
   }, []);
 
-  const getVideo = () => {
-    setCurrentPage(prev => prev+1)
+  const fetchData = async () => {
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      let data = await fetchListVideo('for-you', page);
+
+      setItems(prevItems => [...prevItems, ...data.data]);
+      setPage(prevPage => prevPage + 1);
+    } catch(error) {
+      setError(error)
+    } finally {
+      setIsLoading(false)
+    }
   }
 
-  //  xem cuối màng hình 
-  function checkIfUserScrolledToBottom() {
-    // Lấy chiều cao tổng của văn bản và phần trượt của người dùng
-    const windowHeight = window.innerHeight;
-    const documentHeight = document.documentElement.scrollHeight;
-    const scrolledToBottom = window.scrollY + windowHeight === documentHeight;
-
-    // Kiểm tra xem người dùng đã lướt tới cuối màn hình hay chưa
-    if(scrolledToBottom) {
-        // Gọi hàm tại đây nếu người dùng đã lướt tới cuối màn hình
-        getVideo()
-        console.log(123)
+  useEffect(() => {
+    if (isClient) {
+      fetchData();
     }
-}
+  }, [isClient]);
 
-  // Gọi hàm kiểm tra mỗi khi người dùng cuộn trang
-    window.addEventListener('scroll', checkIfUserScrolledToBottom);
+  
 
   return (
+    <InfiniteScroll
+    dataLength={items.length}
+    next={fetchData}
+    hasMore={true} // Replace with a condition based on your data source
+    loader={<p>Loading...</p>}
+    endMessage={<p>No more data to load.</p>}
+    >
     <div id="focus" className="ml-[111px]">
-      {listVideo.data &&
-        listVideo.data.map((items, index) => (
+      {items &&
+        items.map((items, index) => (
           <div key={items.id} className="flex mb-28 ">
             <Image large src={items.user.avatar} />
             <VideoInfor items={items}/>
           </div>
         ))}
     </div>
+    </InfiniteScroll>
   );
 }
 

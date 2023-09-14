@@ -1,24 +1,34 @@
-import { Fragment, useEffect } from "react";
+import { Fragment, useEffect, useContext, useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { publicRouter } from "./router/index";
 import { DefaultLayout } from "../src/layouts";
-import { useContext } from "react";
 import { UserContext } from "./hooks/useContect";
 import { fetchUserCurrent } from "./apiServices/userServices.js";
 
 function App() {
+
+  // thực hiện gọi data currentuser
+
+  const [isloading, setIsLoading] = useState(true)
   const { login } = useContext(UserContext);
 
   useEffect( () => {
+    if(!isloading) {
+      return
+    }
     const handleRenderUser = async () => {
       let res = await fetchUserCurrent();
       if(res && res.status === 401) {
         return
+      } else {
+        login(res)
+        return
       }
-      login(res)
     };
     handleRenderUser();
-  })
+    setIsLoading(false)
+  }) 
+
 
   return (
     <Router>

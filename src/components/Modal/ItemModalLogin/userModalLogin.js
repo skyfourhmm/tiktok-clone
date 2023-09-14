@@ -1,25 +1,29 @@
 import Button from "../../Button";
 import FooterModal from "../footerModal";
 import Input from "../../Input";
-import {  useState, useContext } from "react";
+import {  useState } from "react";
 import { CloseEyeIcon, OpentEyeIcon } from "../../Icons";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleNotch } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 
-import { UserContext } from "../../../hooks/useContect";
 import { fetchLogin } from "../../../apiServices/userServices.js";
 
+import { UserContext } from "../../../hooks/useContect";
+import { useContext } from "react";
+
 function UserModalLogin({isVisible}) {
+
+  const { login } = useContext(UserContext);
+
+
   const navigate = useNavigate()
 
   const [emailValue, setEmailValue] = useState("");
   const [passwordValue, setPasswordValue] = useState("");
   const [eye, setEye] = useState(true)
   const [loadingApi, setLoadingApi] = useState(false)
-  const { login } = useContext(UserContext);
-
 
   const handleEmailChange = (value) => {
     setEmailValue(value);
@@ -60,7 +64,6 @@ function UserModalLogin({isVisible}) {
 
     setLoadingApi(false)
   }
-
 
   return (
     <div className="flex flex-col items-center">
