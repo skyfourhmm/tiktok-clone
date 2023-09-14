@@ -15,6 +15,9 @@ function Modal({
   const [hideAnimation, setHideAnimation] = useState(false)
   const { user } = useContext(UserContext);
 
+  if(user.auth) {
+    isVisible = true
+  }
 
   if (!isVisible) return null;
 

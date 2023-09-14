@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 
 const ScrollToTopOnReload = () => {
-  useEffect(() => {
-    window.scrollTo(0, 0); // Cuộn lên đầu trang khi Component được tải lại
-  }, []);
+  window.onbeforeunload = function () {
+    window.scrollTo(0, 0);
+  }
 
   return null; // Không cần render bất kỳ gì
 };

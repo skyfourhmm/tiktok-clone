@@ -51,6 +51,7 @@ function UserModalLogin({isVisible}) {
     }
     setLoadingApi(true)
     let res = await fetchLogin(emailValue, passwordValue);
+
     if(res && res.meta){
       localStorage.setItem("token",res.meta.token)
       navigate('/')

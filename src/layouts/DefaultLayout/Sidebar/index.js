@@ -32,10 +32,12 @@ function Sidebar() {
       try {
         let res = await fetchListFollow(showMore);
 
-
+        if(res.status === 401) {
+          return
+        }
         setShowMore(prev => prev + 1)
         setUserFollowing(prevItems => [...prevItems, ...res.data]);
-        setisHideShowMore(userFollowing.length === res.meta.pagination.total)
+        setisHideShowMore(userFollowing.length === res.meta.pagination.total) 
       } catch(error) {
         setError(error)
       } finally {

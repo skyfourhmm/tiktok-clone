@@ -146,7 +146,8 @@ function VideoInfo({items}) {
               onClick={handlePlayVideo}
               loop 
               preload="true"
-              // muted="muted"
+              autoPlay={true}
+              muted="muted"
               className="h-full w-full cursor-pointer"
             >
               <source src={items.file_url} type={items.meta.mime_type} />
