@@ -30,23 +30,6 @@ function Search() {
     }
 
     setLoading(true);
-
-    // request.get(
-    //   `https://tiktok.fullstack.edu.vn/api/users/search`, {
-    //     params: {
-    //       q: debounced,
-    //       type: 'less'
-    //     }
-    //   }
-    // )
-    //   .then((res) => {
-    //     setSearch(res.data.data);
-    //     setLoading(false);
-    //   })
-    //   .catch(() => {
-    //     setLoading(false);
-    //   });
-
       const fetchApi = async () => {
         setLoading(true)
 

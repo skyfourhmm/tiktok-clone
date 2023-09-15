@@ -108,7 +108,12 @@ function Header() {
 
   // lấy dữ liệu xem có dữ liệu hay ko 
   const { user } = useContext(UserContext);
+  let token = localStorage.getItem('token')
 
+  let avatar 
+  if(user.data.data && user.data.data.avatar) {
+    avatar = user.data.data.avatar
+  }
   // xử lý ẩn hiện modal 
   const [showModal, setShowModal] = useState(true)
 
@@ -122,7 +127,7 @@ function Header() {
         {/* search */}
         <Search/>
         <div className="flex items-center">
-          {user.auth ? (
+          {token ? (
             <>
               <Button upload leftIcon={<FontAwesomeIcon icon={faUpload} />}>
                 Up load
@@ -136,7 +141,7 @@ function Header() {
               <Menu items={Menu_User} sendCurrentUser = {sendCurrentUser}>
                   <Image
                     alt={user.data.email}
-                    src = {user.data.data.avatar}
+                    src = {avatar}
                     small
                   />
               </Menu>

@@ -1,4 +1,4 @@
-import {  Fragment, useEffect, useState } from "react";
+import {  Fragment, useState } from "react";
 import { CloseIcon, BackIcon } from "../../../src/components/Icons/index";
 
 import { useContext } from "react";
@@ -15,9 +15,7 @@ function Modal({
   const [hideAnimation, setHideAnimation] = useState(false)
   const { user } = useContext(UserContext);
 
-  if(user.auth) {
-    isVisible = true
-  }
+  if(localStorage.getItem('token')) return null    
 
   if (!isVisible) return null;
 

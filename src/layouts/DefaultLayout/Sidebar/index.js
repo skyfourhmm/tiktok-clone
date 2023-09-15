@@ -55,7 +55,7 @@ function Sidebar() {
       fetchData()
     }
 
-    const { user } = useContext(UserContext);
+    let token = localStorage.getItem('token')
 
   return (
     <Fragment>
@@ -88,7 +88,7 @@ function Sidebar() {
         ></MenuItem>
       </Menu>
 
-      {!user.auth ? <div>
+      {!token ? <div>
         <h4 className="text-gray-400 px-3 py-2">Log in to follow creators, like videos, and view comments.</h4>
         <Button outline large onClick={() => setShowModal(true)}>Log in</Button>
       </div>: <div>
