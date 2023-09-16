@@ -16,4 +16,12 @@ const fetchListFollow = (page = 1) => {
     return instance.get(`me/followings?page=${page}`)
 }
 
-export {fetchLogin, fetchListVideo, fetchUserCurrent, fetchListFollow}
+const fetchFollow = (userID) => {
+    return instance.post(`users/${userID}/follow`)
+}
+
+const fetchUnFollow = (userID) => {
+    return instance.post(`users/${userID}/unfollow`)
+}
+
+export {fetchLogin, fetchListVideo, fetchUserCurrent, fetchListFollow, fetchFollow, fetchUnFollow}
