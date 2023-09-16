@@ -125,7 +125,7 @@ function VideoInfo({ items }) {
   const [hidePlay, setHidePlay] = useState(true);
   const handleHidePlay = () => {
     setHidePlay((prev) => !prev);
-    handlePlayVideo();
+    return handlePlayVideo();
   };
 
   const [isMuted, setIsMuted] = useState(true);
@@ -133,11 +133,9 @@ function VideoInfo({ items }) {
   const toggleMute = () => {
     setIsMuted((prevMuted) => !prevMuted);
   };
-  useEffect(() => {
-    setIsMuted(false);
-  }, []);
 
   return (
+    <>
     <div className="ml-6 flex items-start">
       <div className="max-w-[500px]">
         <Link to={`/@${items.user.nickname}`}>
@@ -166,9 +164,9 @@ function VideoInfo({ items }) {
               ref={videoRef}
               onClick={handlePlayVideo}
               loop
-              preload="true"
+              preload="auto"
               autoPlay={true}
-              muted={"true"}
+              muted={isMuted}
               onPlay={() => setHidePlay(true)}
               onPause={() => setHidePlay(false)}
               className="w-full h-full object-cover cursor-pointer rounded-2xl"
@@ -184,7 +182,7 @@ function VideoInfo({ items }) {
             </div>
             <div
               className="absolute bottom-0 right-0 text-white mr-6 mb-6 cursor-pointer"
-              onClick={toggleMute}
+              onClick={() => toggleMute()}
             >
               {isMuted && <FontAwesomeIcon icon={faVolumeXmark} />}
               {!isMuted && <FontAwesomeIcon icon={faVolumeHigh} />}
@@ -237,6 +235,7 @@ function VideoInfo({ items }) {
         {follow ? "Follow" : "Following"}
       </Button>
     </div>
+    </>
   );
 }
 

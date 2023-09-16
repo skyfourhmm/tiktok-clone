@@ -1,7 +1,8 @@
-import Image from "../Image";
 import React, { useEffect, useState, useRef } from "react";
 import { fetchListVideo } from "../../apiServices/userServices.js";
 import VideoInfor from './VideoInfo'
+import Image from "../Image";
+
 
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -57,7 +58,7 @@ function Video() {
     dataLength={items.length}
     next={fetchData}
     hasMore={true} // Replace with a condition based on your data source
-    loader={<FontAwesomeIcon icon={faSpinner}/>}
+    loader={isLoading && <FontAwesomeIcon className="animate-spin" icon={faSpinner}/>}
     endMessage={<p>No more data to load.</p>}
     >
     <div id="focus" className="ml-[111px]">
