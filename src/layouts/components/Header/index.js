@@ -31,8 +31,12 @@ import Search from "../Search/index.js";
 import config from "../../../config";
 import ModalLogIn from "../../../components/Modal/modalLogIn.js";
 
-
 function Header() {
+  const { user } = useContext(UserContext);
+  let token = localStorage.getItem('token')
+
+  
+
   const MENU_ITEM = [
     {
       icon: <FontAwesomeIcon icon={faLanguage} />,
@@ -74,7 +78,7 @@ function Header() {
     {
       icon: <FontAwesomeIcon icon={faUser} />,
       title: "View Profile",
-      to: "/userPage",
+      to: '/userPage',
     },
     {
       icon: <FontAwesomeIcon icon={faBookmark} />,
@@ -107,8 +111,6 @@ function Header() {
   }
 
   // lấy dữ liệu xem có dữ liệu hay ko 
-  const { user } = useContext(UserContext);
-  let token = localStorage.getItem('token')
 
   let avatar 
   if(user.data.data && user.data.data.avatar) {

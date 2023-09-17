@@ -3,9 +3,8 @@ import MenuItem from "../../components/Sidebar/Menu/MenuItem";
 import config from "../../../config";
 import AccountItem from "../../../components/AccountItem/AccountItem";
 import ModalLogIn from '../../../../src/components/Modal/modalLogIn'
-import { UserContext } from "../../../hooks/useContect";
 
-import { Fragment, useEffect, useState, useContext } from "react";
+import { Fragment, useEffect, useState } from "react";
 import Button from "../../../components/Button";
 import {ForYouIcon, FollowingIcon, ExploreIcon, LiveIcon, ForYouIconActive, FollowingIconActive, ExploreIconActive, LiveIconActive} from '../../../../src/components/Icons/index.js'
 import { fetchListFollow } from "../../../apiServices/userServices.js";

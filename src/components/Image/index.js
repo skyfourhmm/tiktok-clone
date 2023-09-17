@@ -1,7 +1,7 @@
 import { forwardRef, useState } from "react";
 import image from "../../assets/images";
 
-const Image = forwardRef(({src, alt, small = false, large = false, ...props}, ref) => {
+const Image = forwardRef(({src, alt, small = false, large = false, profile= false, ...props}, ref) => {
 
     const [failBack, setFailBack] = useState('')
     const handleChangeImage = () => {
@@ -16,6 +16,10 @@ const Image = forwardRef(({src, alt, small = false, large = false, ...props}, re
 
     if(large) {
       classBase = classBase.concat('w-24 h-24')
+    }
+
+    if(profile) {
+      classBase = classBase.concat('w-44 h-44')
     }
 
     return (

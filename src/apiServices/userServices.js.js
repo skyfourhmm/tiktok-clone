@@ -24,4 +24,8 @@ const fetchUnFollow = (userID) => {
     return instance.post(`users/${userID}/unfollow`)
 }
 
-export {fetchLogin, fetchListVideo, fetchUserCurrent, fetchListFollow, fetchFollow, fetchUnFollow}
+const fetchAnUser = (pathName) => {
+    return instance.get(`users${pathName}`)
+}
+
+export {fetchLogin, fetchListVideo, fetchUserCurrent, fetchListFollow, fetchFollow, fetchUnFollow, fetchAnUser}

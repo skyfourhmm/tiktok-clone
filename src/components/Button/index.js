@@ -12,6 +12,7 @@ function Button({
   rightIcon = false,
   small = false,
   large = false,
+  profile = false,
   children,
   onClick,
   ...passProps
@@ -32,7 +33,7 @@ function Button({
   }
 
 
-  let classBase = "cursor-pointer font-bold py-4 px-11 rounded-md ml-8 ";
+  let classBase = `cursor-pointer font-bold py-4 px-11 rounded-md ${profile ? '' : 'ml-8 '}`;
 
   if (primary) {
     classBase = classBase.concat(
@@ -67,7 +68,7 @@ function Button({
 
   return (
     <Comp className={classBase} {...props}>
-      {leftIcon && <span className="mr-2">{leftIcon}</span>}
+      {leftIcon && <span className='mr-2'>{leftIcon}</span>}
       <span>{children}</span>
       {rightIcon && <span className="ml-2">{rightIcon}</span>}
     </Comp>

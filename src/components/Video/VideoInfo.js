@@ -1,5 +1,4 @@
 import useElementOnScreen from "../../hooks/useElementOnScreen";
-import Button from "../Button";
 import Interactions from "./Interactions";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -13,7 +12,7 @@ import {
 
 import { useRef, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import ButtonFollow from "./ButtonFollow";
+import ButtonFollow from "../ButtonFollow";
 
 function VideoInfo({ items }) {
 
@@ -126,7 +125,7 @@ function VideoInfo({ items }) {
             <Interactions items={items} />
           </div>
         </div>
-        <ButtonFollow items={items}/>
+        <ButtonFollow followed={items.user.is_followed} userID={items.user_id}/>
       </div>
     </>
   );
