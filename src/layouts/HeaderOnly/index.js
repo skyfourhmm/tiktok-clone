@@ -2,7 +2,7 @@ import Header from "../components/Header";
 
 function HeaderOnly({children}) {
     return (
-        <div className="container">
+        <div className="relative w-full">
             <Header/>
             <div className="content flex mt-24">
                 {children}

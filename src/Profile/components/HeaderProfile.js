@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { IconUserFollowing, ShareIcon } from "../../components/Icons";
+import {  ShareIcon } from "../../components/Icons";
 import Image from "../../components/Image";
 import { faCircleCheck, faEllipsis } from "@fortawesome/free-solid-svg-icons";
 import ButtonFollow from "../../components/ButtonFollow";

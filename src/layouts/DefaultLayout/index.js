@@ -4,7 +4,7 @@ import Sidebar from "./Sidebar";
 
 function DefaultLayout({children}) {
     return ( 
-        <div className="container">
+        <div className="">
             <Header/>
             <div className="content flex mt-24">
                 <Sidebar/>
