@@ -8,7 +8,7 @@ const UserProvider = ({ children }) => {
   
     // Login updates the user data with a name parameter
     const login = (data) => {
-      setUser((user) => ({
+      setUser(() => ({
         data: data,
         auth: true,
       }));
@@ -16,7 +16,7 @@ const UserProvider = ({ children }) => {
   
     // Logout updates the user data to default
     const logout = () => {
-      setUser((user) => ({
+      setUser(() => ({
         data: {},
         auth: false,
       }));

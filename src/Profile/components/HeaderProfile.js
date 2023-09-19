@@ -29,7 +29,7 @@ function HeaderProfile({data, location}) {
           </div>
           <h3 className="font-bold">{data.first_name + " " + data.last_name}</h3>
           <div className="flex mt-3">
-            {location.pathname === '/@'+nickname ? <Button upload leftIcon={<EditProfileIcon/>}><span>Edit profile</span></Button> : <ButtonFollow followed={data.is_followed} userID={data.id} inside/>}  
+            {location.pathname === '/@'+nickname ? <Button upload profile leftIcon={<EditProfileIcon />}><span>Edit profile</span></Button> : <ButtonFollow followed={data.is_followed} userID={data.id} inside/>}  
           </div>
         </div>
         <div className="items-start ml-[135px]">

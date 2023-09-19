@@ -1,4 +1,5 @@
 import Tippy from "@tippyjs/react/headless";
+import { useNavigate } from "react-router-dom";
 import {Wrapper as PopperWrapper} from "../../Popper/index.js";
 import MenuItems from "./MenuItems.js";
 import Header from "./Header.js";
@@ -9,7 +10,10 @@ function Menu({ children, items = [] , sendCurrentUser}) {
 
     const [history, setHistory] = useState([{data:items}])
     const current = history[history.length - 1]
-    const { logout } = useContext(UserContext);
+    const { logout, user } = useContext(UserContext);
+
+    
+    const navigate = useNavigate()
  
     const handleLogOut = () => {
       const data = false
@@ -31,8 +35,13 @@ function Menu({ children, items = [] , sendCurrentUser}) {
             if(isSeparation) {
               handleLogOut()
             }
+            if(item.type === 'profile'){
+              const nickname = user?.data?.data?.nickname
+              navigate('@'+nickname)
+            }
           }}/>
         })
+
     }
 
     

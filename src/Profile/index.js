@@ -5,11 +5,11 @@ import { useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLock } from "@fortawesome/free-solid-svg-icons";
 import Video from "./components/Video.js";
+import { UserIcon } from "../components/Icons/index";
 
 function Profile() {
   const location = useLocation();
   const [dataUser, setDataUser] = useState({});
-  const [showClass, setShowClass] = useState(true);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -30,11 +30,19 @@ function Profile() {
   const renderVideo = () => {
     if (dataUser && dataUser.data) {
       if (dataUser.data.videos && dataUser.data.videos.length > 0) {
-        return dataUser.data.videos.map((items) => (
-          <Video items={items}/>
-        ));
+        return <div className="grid-cols-8 grid gap-3 mt-9 parent">
+        {dataUser.data.videos.map((items) => (
+          <Video items={items} key={items.id} />
+        ))}
+      </div>;
       } else {
-        return <h1 className="w-full">Không có video ở đây</h1>;
+        return ( 
+          <div className="flex w-full flex-col items-center mt-20 mb-3">
+            <UserIcon width="80px" height="80px" className='text-gray-400'/>
+            <h3 className="text-4xl font-extrabold mb-3">Không có nội dung</h3>
+            <span>Người dùng này chưa đăng bất kỳ video nào.</span>
+          </div>
+        );
       }
     } else {
       return <p>Loading...</p>;
@@ -81,14 +89,14 @@ function Profile() {
         </div>
       </div>
 
-      <div className={showClass ? "grid-cols-8 grid gap-3 mt-9" : ""}>
+      {/* <div className={"grid-cols-8 grid gap-3 mt-9 parent"}> */}
         {/* <div className="h-[290px] ml-5">
           <video className="h-full object-cover rounded-2xl cursor-pointer">
             <source src="https://files.fullstack.edu.vn/f8-tiktok/videos/3083-6503c58d5c308.mp4" />
           </video>
         </div> */}
         {renderVideo()}
-      </div>
+      {/* </div> */}
     </div>
   );
 }

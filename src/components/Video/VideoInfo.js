@@ -15,16 +15,19 @@ import { Link } from "react-router-dom";
 import ButtonFollow from "../ButtonFollow";
 
 function VideoInfo({ items }) {
-
   const videoRef = useRef(null);
   const [playing, setPlaying] = useState(false);
 
   const handlePlayVideo = () => {
-    setPlaying((prev) => !prev);
-    if (playing) {
-      videoRef.current.pause();
-    } else {
-      videoRef.current.play();
+    try {
+      setPlaying((prev) => !prev);
+      if (playing) {
+        videoRef.current.pause();
+      } else {
+        videoRef.current.play();
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -37,16 +40,22 @@ function VideoInfo({ items }) {
 
   useEffect(() => {
     const handlePlayVideo = () => {
-      if (isVisibile) {
-        if (!playing) {
-          videoRef.current.play();
-          setPlaying(true);
+      try {
+        if (isVisibile) {
+          if (!playing) {
+            videoRef.current.play();
+            setPlaying(true);
+            toggleMute();
+          }
+        } else {
+          if (playing) {
+            videoRef.current.pause();
+            setPlaying(false);
+            toggleMute();
+          }
         }
-      } else {
-        if (playing) {
-          videoRef.current.pause();
-          setPlaying(false);
-        }
+      } catch (error) {
+        console.log(error)
       }
     };
     handlePlayVideo();
@@ -125,7 +134,10 @@ function VideoInfo({ items }) {
             <Interactions items={items} />
           </div>
         </div>
-        <ButtonFollow followed={items.user.is_followed} userID={items.user_id}/>
+        <ButtonFollow
+          followed={items.user.is_followed}
+          userID={items.user_id}
+        />
       </div>
     </>
   );

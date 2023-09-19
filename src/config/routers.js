@@ -4,7 +4,9 @@ const routers = {
     upload: '/upload',
     profile: '/:nickname',
     explore: '/explore',
-    live: '/live'
+    live: '/live',
+    videos: '/videos',
+    explore : '/explore',
 }
 
 export default routers

@@ -3,7 +3,7 @@ import Modal from "./index";
 import {
   QRIcon,
   FaceBookIcon,
-  userIcon,
+  UserIcon,
   GoogleIcon,
   TwitterIcon,
   InstagramIcon,
@@ -24,7 +24,7 @@ function ModalLogIn({ isVisible, onClose }) {
     {
       id: 2,
       title: "Use phone / email / username",
-      icon: userIcon,
+      icon: UserIcon,
     },
     {
       id: 3,

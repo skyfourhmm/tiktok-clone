@@ -16,11 +16,11 @@ function Video() {
   }, []);
 
   // lấy data video
-
+  var randomNumber = Math.floor(Math.random() * 30) + 1;
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(randomNumber);
   
   const [isClient, setIsClient] = useState(false); 
 
@@ -37,6 +37,9 @@ function Video() {
       let data = await fetchListVideo('for-you', page);
 
       setItems(prevItems => [...prevItems, ...data.data]);
+      if(page > data.meta.pagination.total_pages) {
+        setPage(1)
+      }
       setPage(prevPage => prevPage + 1);
     } catch(error) {
       setError(error)

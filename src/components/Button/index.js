@@ -33,7 +33,7 @@ function Button({
   }
 
 
-  let classBase = `flex items-center cursor-pointer font-bold py-4 px-11 rounded-md ${profile ? '' : 'ml-8 '}`;
+  let classBase = `cursor-pointer font-bold py-4 px-11 rounded-md ${profile ? '' : 'ml-8 '}`;
 
   if (primary) {
     classBase = classBase.concat(
