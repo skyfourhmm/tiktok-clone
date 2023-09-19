@@ -1,12 +1,14 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {  ShareIcon } from "../../components/Icons";
+import {  ShareIcon, EditProfileIcon } from "../../components/Icons";
 import Image from "../../components/Image";
 import { faCircleCheck, faEllipsis } from "@fortawesome/free-solid-svg-icons";
 import ButtonFollow from "../../components/ButtonFollow";
+import Button from "../../components/Button";
 
+function HeaderProfile({data, location}) {
 
-function HeaderProfile({data}) {
-  
+  let nickname = localStorage.getItem('nickname')
+
   if(!data) {
     return null
   }
@@ -27,10 +29,7 @@ function HeaderProfile({data}) {
           </div>
           <h3 className="font-bold">{data.first_name + " " + data.last_name}</h3>
           <div className="flex mt-3">
-            <ButtonFollow followed={data.is_followed} userID={data.id} inside/>
-            {/* <Button primary profile>
-              Follow
-            </Button> */}
+            {location.pathname === '/@'+nickname ? <Button upload leftIcon={<EditProfileIcon/>}><span>Edit profile</span></Button> : <ButtonFollow followed={data.is_followed} userID={data.id} inside/>}  
           </div>
         </div>
         <div className="items-start ml-[135px]">

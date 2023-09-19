@@ -54,6 +54,7 @@ function UserModalLogin({isVisible}) {
 
     if(res && res.meta){
       localStorage.setItem("token",res.meta.token)
+      localStorage.setItem('nickname', res.data.nickname)
       navigate('/')
       window.location.reload()
       login(res.data)

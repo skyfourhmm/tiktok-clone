@@ -4,10 +4,12 @@ import HeaderProfile from "./components/HeaderProfile";
 import { useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLock } from "@fortawesome/free-solid-svg-icons";
+import Video from "./components/Video.js";
 
 function Profile() {
   const location = useLocation();
   const [dataUser, setDataUser] = useState({});
+  const [showClass, setShowClass] = useState(true);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -24,16 +26,16 @@ function Profile() {
     fetchData();
   }, [location.pathname]);
 
+
   const renderVideo = () => {
     if (dataUser && dataUser.data) {
-      console.log(dataUser.data.videos);
-      return dataUser.data.videos.map((items) => (
-        <div key={items.id} className=" w-full h-[290px] ml-5">
-          <video className="h-full object-cover rounded-2xl cursor-pointer" controls>
-            <source src={items.file_url} />
-          </video>
-        </div>
-      ));
+      if (dataUser.data.videos && dataUser.data.videos.length > 0) {
+        return dataUser.data.videos.map((items) => (
+          <Video items={items}/>
+        ));
+      } else {
+        return <h1 className="w-full">Không có video ở đây</h1>;
+      }
     } else {
       return <p>Loading...</p>;
     }
@@ -56,7 +58,7 @@ function Profile() {
 
   return (
     <div className="ml-[280px] px-6 py-8 relative w-full">
-      <HeaderProfile data={dataUser.data} />
+      <HeaderProfile data={dataUser.data} location={location}/>
 
       <div className="mt-9">
         <div className="flex w-[400px] relative">
@@ -79,7 +81,7 @@ function Profile() {
         </div>
       </div>
 
-      <div className="grid-cols-6 grid gap-6 mt-9">
+      <div className={showClass ? "grid-cols-8 grid gap-3 mt-9" : ""}>
         {/* <div className="h-[290px] ml-5">
           <video className="h-full object-cover rounded-2xl cursor-pointer">
             <source src="https://files.fullstack.edu.vn/f8-tiktok/videos/3083-6503c58d5c308.mp4" />

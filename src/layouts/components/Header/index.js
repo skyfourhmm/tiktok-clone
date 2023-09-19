@@ -34,7 +34,7 @@ import ModalLogIn from "../../../components/Modal/modalLogIn.js";
 function Header() {
   const { user } = useContext(UserContext);
   let token = localStorage.getItem('token')
-
+  let nickname = localStorage.getItem('nickname')
   
 
   const MENU_ITEM = [
@@ -78,7 +78,7 @@ function Header() {
     {
       icon: <FontAwesomeIcon icon={faUser} />,
       title: "View Profile",
-      to: '/userPage',
+      to: `/@${nickname}`,
     },
     {
       icon: <FontAwesomeIcon icon={faBookmark} />,
@@ -102,6 +102,7 @@ function Header() {
       separation: true
     },
   ]
+  
 
   // const currentUser = true;
 

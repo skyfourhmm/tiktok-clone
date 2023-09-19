@@ -21,6 +21,7 @@ const UserProvider = ({ children }) => {
         auth: false,
       }));
       localStorage.removeItem('token')
+      localStorage.removeItem('nickname')
     };
   
     return (

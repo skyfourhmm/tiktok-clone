@@ -16,19 +16,20 @@ function App() {
     if(!isloading) {
       return
     }
-    const handleRenderUser = async () => {
-      let res = await fetchUserCurrent();
-      if(res && res.status === 401) {
-        return
-      } else {
-        login(res)
-        return
-      }
-    };
     handleRenderUser();
     setIsLoading(false)
-  }) 
+  })
 
+  const handleRenderUser = async () => {
+    let res = await fetchUserCurrent();
+    if(res && res.status === 401) {
+      return
+    } else {
+      login(res)
+      return
+    }
+  };
+  
 
   return (
     <Router>
