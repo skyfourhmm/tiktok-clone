@@ -66,11 +66,10 @@ function ModalLogIn({ isVisible, onClose }) {
     setHideBack(true);
   };
 
-
   return (
     <Modal
       isVisible={isVisible}
-      onClose={onClose}
+      // onClose={onClose}
       firtPageModal={setModalChange}
       hideback={hideBack}
       sethideback={setHideBack}
@@ -78,7 +77,7 @@ function ModalLogIn({ isVisible, onClose }) {
       {modalChange === 1 ? (
         <ModalQR />
       ) : modalChange === 2 ? (
-        <UserModalLogin/>
+        <UserModalLogin />
       ) : (
         <Fragment>
           <div className="flex flex-col items-center overflow-auto h-4/5">
@@ -115,7 +114,7 @@ function ModalLogIn({ isVisible, onClose }) {
                 </a>
               </span>
             </div>
-            <FooterModal/>
+            <FooterModal />
           </div>
         </Fragment>
       )}

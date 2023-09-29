@@ -1,7 +1,7 @@
 import Button from "../../Button";
 import FooterModal from "../footerModal";
 import Input from "../../Input";
-import {  useState } from "react";
+import { useState } from "react";
 import { CloseEyeIcon, OpentEyeIcon } from "../../Icons";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -13,17 +13,15 @@ import { fetchLogin } from "../../../apiServices/userServices.js";
 import { UserContext } from "../../../hooks/useContect";
 import { useContext } from "react";
 
-function UserModalLogin({isVisible}) {
-
+function UserModalLogin({ isVisible }) {
   const { login } = useContext(UserContext);
 
-
-  const navigate = useNavigate()
+  // const navigate = useNavigate();
 
   const [emailValue, setEmailValue] = useState("");
   const [passwordValue, setPasswordValue] = useState("");
-  const [eye, setEye] = useState(true)
-  const [loadingApi, setLoadingApi] = useState(false)
+  const [eye, setEye] = useState(true);
+  const [loadingApi, setLoadingApi] = useState(false);
 
   const handleEmailChange = (value) => {
     setEmailValue(value);
@@ -33,38 +31,38 @@ function UserModalLogin({isVisible}) {
     setPasswordValue(value);
   };
 
-  // ẩn hiện mật khẩu
+  // ẩn hiện mật khẩuUse phone / email / username
   const handleEye = () => {
-    setEye(prev => !prev)
-  }
+    setEye((prev) => !prev);
+  };
 
   const handleKeyPress = (event) => {
-    if (event.key === 'Enter') {    
+    if (event.key === "Enter") {
       handleLogin();
     }
-  }
+  };
 
   const handleLogin = async () => {
-    if(!emailValue || !passwordValue) {
+    if (!emailValue || !passwordValue) {
       // thông báo
-      return
+      return;
     }
-    setLoadingApi(true)
+    setLoadingApi(true);
     let res = await fetchLogin(emailValue, passwordValue);
 
-    if(res && res.meta){
-      localStorage.setItem("token",res.meta.token)
-      navigate('/')
-      window.location.reload()
-      login(res.data)
+    if (res && res.meta) {
+      localStorage.setItem("token", res.meta.token);
+      // navigate("/");
+      window.location.reload();
+      login(res.data);
     }
-    
-    if(res && res.status === 400) {
+
+    if (res && res.status === 400) {
       // thông báo lỗi ở đây
     }
 
-    setLoadingApi(false)
-  }
+    setLoadingApi(false);
+  };
 
   return (
     <div className="flex flex-col items-center">
@@ -80,11 +78,14 @@ function UserModalLogin({isVisible}) {
         />
         <Input
           placeholder="Password"
-          type={eye ? "password":'text'}
+          type={eye ? "password" : "text"}
           onValueChange={handlePasswordChange}
         />
-        <div className="absolute bottom-[51%] right-6 cursor-pointer" onClick={handleEye}>
-          {eye ? <CloseEyeIcon/> : <OpentEyeIcon/>}
+        <div
+          className="absolute bottom-[51%] right-6 cursor-pointer"
+          onClick={handleEye}
+        >
+          {eye ? <CloseEyeIcon /> : <OpentEyeIcon />}
         </div>
         <span className="my-4 text-lg hover:underline cursor-pointer">
           Forgot password?
@@ -96,7 +97,11 @@ function UserModalLogin({isVisible}) {
           onClick={handleLogin}
           onKeyDown={handleKeyPress}
         >
-          {loadingApi ? <FontAwesomeIcon icon={faCircleNotch} className="animate-spin" /> :'Log in'}
+          {loadingApi ? (
+            <FontAwesomeIcon icon={faCircleNotch} className="animate-spin" />
+          ) : (
+            "Log in"
+          )}
         </Button>
       </div>
       <FooterModal />

@@ -1,77 +1,87 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 
 import Menu from "../Popper/Menu";
 import {
-    HeartIcon,
-    CommentIcon,
-    ShareIcon,
-    EmbedIcon,
-    SendIcon,
-    FaceBookIcon,
-    WhatsAppIcon,
-    CoppyLinkIcon,
-    TwitterIcon,
-    LinkInIcon,
-    RedditIcon,
-    TelegramIcon,
+  HeartIcon,
+  CommentIcon,
+  ShareIcon,
+  EmbedIcon,
+  SendIcon,
+  FaceBookIcon,
+  WhatsAppIcon,
+  CoppyLinkIcon,
+  TwitterIcon,
+  LinkInIcon,
+  RedditIcon,
+  TelegramIcon,
 } from "../Icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faBookmark
-} from "@fortawesome/free-solid-svg-icons";
+import { faBookmark } from "@fortawesome/free-solid-svg-icons";
+import { UserContext } from "../../hooks/useContect";
 
+import { openModalLogin } from "../../redux/action";
+import { store } from "../../redux/store";
 
-function Interactions({items}) {
-    const MENU_ITEM = [
-        {
-          icon: <EmbedIcon />,
-          title: "Embed",
-        },
-        {
-          icon: <SendIcon />,
-          title: "Send to Friends",
-        },
-        {
-          icon: <FaceBookIcon width="26" height="26" />,
-          title: "Share to Facebook",
-        },
-        {
-          icon: <WhatsAppIcon />,
-          title: "Share to WhatsApp",
-        },
-        {
-          icon: <CoppyLinkIcon />,
-          title: "Coppy link",
-        },
-        {
-          icon: <TwitterIcon width="26" height="26" />,
-          title: "Share to Twitter",
-        },
-        {
-          icon: <LinkInIcon />,
-          title: "Share to Linkedin",
-        },
-        {
-          icon: <RedditIcon />,
-          title: "Share to Reddit",
-        },
-        {
-          icon: <TelegramIcon />,
-          title: "Share to Telegram",
-        },
-      ];
+function Interactions({ items }) {
+  const { user } = useContext(UserContext);
 
-    const [interactionHeart, setInteractionHeart] = useState(false);
-    const [interactionSave, setInteractionSave] = useState(false);
+  const MENU_ITEM = [
+    {
+      icon: <EmbedIcon />,
+      title: "Embed",
+    },
+    {
+      icon: <SendIcon />,
+      title: "Send to Friends",
+    },
+    {
+      icon: <FaceBookIcon width="26" height="26" />,
+      title: "Share to Facebook",
+    },
+    {
+      icon: <WhatsAppIcon />,
+      title: "Share to WhatsApp",
+    },
+    {
+      icon: <CoppyLinkIcon />,
+      title: "Coppy link",
+    },
+    {
+      icon: <TwitterIcon width="26" height="26" />,
+      title: "Share to Twitter",
+    },
+    {
+      icon: <LinkInIcon />,
+      title: "Share to Linkedin",
+    },
+    {
+      icon: <RedditIcon />,
+      title: "Share to Reddit",
+    },
+    {
+      icon: <TelegramIcon />,
+      title: "Share to Telegram",
+    },
+  ];
 
-    const handleInteractionHeart = () => {
-        setInteractionHeart((prev) => !prev);
-      };
-    
-      const handleInteractionSave = () => {
-        setInteractionSave((prev) => !prev);
-      };
-    
+  const [interactionHeart, setInteractionHeart] = useState(false);
+  const [interactionSave, setInteractionSave] = useState(false);
+
+  const handleInteractionHeart = () => {
+    if (user.auth) {
+      setInteractionHeart((prev) => !prev);
+    } else {
+      store.dispatch(openModalLogin());
+    }
+  };
+
+  const handleInteractionSave = () => {
+    if (user.auth) {
+      setInteractionSave((prev) => !prev);
+    } else {
+      store.dispatch(openModalLogin());
+    }
+  };
 
   return (
     <div className="justify-end flex flex-col pl-6">

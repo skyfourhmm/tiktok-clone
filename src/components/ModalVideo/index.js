@@ -6,6 +6,9 @@ import { faPlay } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 
 function Videos({ items }) {
+
+  console.log(items)
+
   return (
     <div className="flex h-screen">
       <div className="basis-2/3 relative">

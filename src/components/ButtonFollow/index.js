@@ -3,6 +3,9 @@ import { useState, useContext } from "react";
 import { UserContext } from "../../hooks/useContect";
 import { fetchFollow, fetchUnFollow } from "../../apiServices/userServices.js";
 
+import { openModalLogin } from "../../redux/action";
+import { store } from "../../redux/store";
+
 import { IconUserFollowing } from "../../components/Icons";
 
 function ButtonFollow({ followed, userID, inside = false }) {
@@ -22,6 +25,8 @@ function ButtonFollow({ followed, userID, inside = false }) {
           setIsFollowed(true);
         }
       }
+    } else {
+      store.dispatch(openModalLogin());
     }
   };
 
@@ -32,13 +37,16 @@ function ButtonFollow({ followed, userID, inside = false }) {
         outline={!isFollowed}
         upload={isFollowed}
         primary={!isFollowed}
-        onClick={(isFollowed && inside) ? null : handleFollow}
+        onClick={isFollowed && inside ? null : handleFollow}
         profile
       >
         {!isFollowed ? "Follow" : !inside ? "Following" : "Messages"}
       </Button>
-      {(isFollowed && inside) ? (
-        <button className="py-2 px-2 ml-4 border-2 rounded-md" onClick={handleFollow}>
+      {isFollowed && inside ? (
+        <button
+          className="py-2 px-2 ml-4 border-2 rounded-md"
+          onClick={handleFollow}
+        >
           <IconUserFollowing />
         </button>
       ) : (

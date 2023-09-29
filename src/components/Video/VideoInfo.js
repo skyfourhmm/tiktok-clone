@@ -11,14 +11,19 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 import { useRef, useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link  } from "react-router-dom";
 import ButtonFollow from "../ButtonFollow";
+import Videos from '../../Videos/index'
+import AccountItem from "../AccountItem/AccountItem";
+import VideoContent from "./VideoContent";
 
 function VideoInfo({ items }) {
   const videoRef = useRef(null);
   const [playing, setPlaying] = useState(false);
+  // const history = useHistory();
 
   const handlePlayVideo = () => {
+    // history.push('videos', { data: items });
     try {
       setPlaying((prev) => !prev);
       if (playing) {
@@ -27,7 +32,9 @@ function VideoInfo({ items }) {
         videoRef.current.play();
       }
     } catch (error) {
-      console.log(error);
+      if(error.message === "The play() request was interrupted by a call to pause().") {
+        console.log(error.message)
+      }
     }
   };
 
@@ -55,7 +62,9 @@ function VideoInfo({ items }) {
           }
         }
       } catch (error) {
-        console.log(error)
+        if(error.message === "The play() request was interrupted by a call to pause().") {
+          console.log(error.message)
+        }
       }
     };
     handlePlayVideo();
@@ -94,6 +103,7 @@ function VideoInfo({ items }) {
               )}
             </div>
           </Link>
+          {/* <AccountItem data={items.user}/> */}
           <h2 className="">{items.description}</h2>
           <div className="mb-5">
             <FontAwesomeIcon icon={faMusic} />
@@ -103,7 +113,8 @@ function VideoInfo({ items }) {
           </div>
           <div className="flex">
             <div className="rounded-2xl relative w-full h-[550px]">
-              <video
+              {/* <video
+                key={items.id}
                 ref={videoRef}
                 onClick={handlePlayVideo}
                 loop
@@ -115,8 +126,9 @@ function VideoInfo({ items }) {
                 className="w-full h-full object-cover cursor-pointer rounded-2xl"
               >
                 <source src={items.file_url} type={items.meta.mime_type} />
-              </video>
-              <div
+              </video> */}
+              <VideoContent items={items} />
+              {/* <div
                 className="absolute bottom-0 left-0 text-white ml-6 mb-6 cursor-pointer"
                 onClick={handleHidePlay}
               >
@@ -129,7 +141,7 @@ function VideoInfo({ items }) {
               >
                 {isMuted && <FontAwesomeIcon icon={faVolumeXmark} />}
                 {!isMuted && <FontAwesomeIcon icon={faVolumeHigh} />}
-              </div>
+              </div> */}
             </div>
             <Interactions items={items} />
           </div>
