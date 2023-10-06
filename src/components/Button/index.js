@@ -32,8 +32,9 @@ function Button({
     Comp = "a";
   }
 
-
-  let classBase = `cursor-pointer font-bold py-4 px-11 rounded-md ${profile ? '' : 'ml-8 '}`;
+  let classBase = `cursor-pointer font-bold py-4 px-11 rounded-md ${
+    profile ? "flex items-center " : "ml-8 "
+  }`;
 
   if (primary) {
     classBase = classBase.concat(
@@ -48,27 +49,36 @@ function Button({
       "bg-inherit border-solid border-2 border-gray-300 hover:bg-gray-100 "
     );
   } else if (rounded) {
-    classBase = classBase.replace(new RegExp('rounded-md', 'g'), 'rounded-full')
-    classBase = classBase.concat('bg-inherit border-solid border-2 border-gray-300 hover:bg-gray-100 ')
+    classBase = classBase.replace(
+      new RegExp("rounded-md", "g"),
+      "rounded-full"
+    );
+    classBase = classBase.concat(
+      "bg-inherit border-solid border-2 border-gray-300 hover:bg-gray-100 "
+    );
   }
-  
-  if(disabled) {
-    Object.keys(props).forEach(key => {
-      if(key.startsWith('on') && typeof props[key] === 'function') {
-        delete props[key]
+
+  if (disabled) {
+    Object.keys(props).forEach((key) => {
+      if (key.startsWith("on") && typeof props[key] === "function") {
+        delete props[key];
       }
-    })
-    primary ? classBase = classBase.concat(' cursor-default opacity-30 ') : classBase = classBase.concat('cursor-default opacity-30 bg-gray-400 ')
+    });
+    primary
+      ? (classBase = classBase.concat(" cursor-default opacity-30 "))
+      : (classBase = classBase.concat(
+          "cursor-default opacity-30 bg-gray-400 "
+        ));
   }
 
   if (large) {
-    classBase = classBase.replace(new RegExp('ml-8', 'g'), 'w-[100%]')
-    classBase = classBase.concat(' my-8 ')
+    classBase = classBase.replace(new RegExp("ml-8", "g"), "w-[100%]");
+    classBase = classBase.concat(" my-8 ");
   }
 
   return (
     <Comp className={classBase} {...props}>
-      {leftIcon && <span className='mr-2'>{leftIcon}</span>}
+      {leftIcon && <span className="mr-2">{leftIcon}</span>}
       <span>{children}</span>
       {rightIcon && <span className="ml-2">{rightIcon}</span>}
     </Comp>

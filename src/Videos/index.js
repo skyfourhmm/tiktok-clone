@@ -7,7 +7,7 @@ import { useState } from "react";
 
 function Videos({ items }) {
   return (
-    <div className="flex h-screen">
+    <div className="flex h-screen fixed inset-0 z-20">
       <div className="basis-2/3 relative">
         <img
           className="h-full w-full"
@@ -20,7 +20,7 @@ function Videos({ items }) {
               type="video/mp4"
             />
         </video> */}
-        <VideoContent inside/>
+        <VideoContent inside />
         <div className="absolute top-0 z-30 flex justify-between w-full px-4 mt-6">
           <ButtonCircle leftIcon={<CloseIcon />}></ButtonCircle>
           <ButtonCircle leftIcon={<FlagIcon width="16" height="16" />}>

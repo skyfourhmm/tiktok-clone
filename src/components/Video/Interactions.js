@@ -21,6 +21,10 @@ import { UserContext } from "../../hooks/useContect";
 
 import { openModalLogin } from "../../redux/action";
 import { store } from "../../redux/store";
+import {
+  fetchLikeVideo,
+  fetchUnLikeVideo,
+} from "../../apiServices/userServices.js";
 
 function Interactions({ items }) {
   const { user } = useContext(UserContext);
@@ -64,12 +68,24 @@ function Interactions({ items }) {
     },
   ];
 
-  const [interactionHeart, setInteractionHeart] = useState(false);
+  const [interactionHeart, setInteractionHeart] = useState(items.is_liked);
   const [interactionSave, setInteractionSave] = useState(false);
+  const [countLike, setCountLike] = useState(items.likes_count);
 
-  const handleInteractionHeart = () => {
+  const handleInteractionHeart = async () => {
     if (user.auth) {
       setInteractionHeart((prev) => !prev);
+      if (!interactionHeart) {
+        let res = await fetchLikeVideo(items.id);
+        if (res && res?.data?.likes_count) {
+          setCountLike(res.data.likes_count);
+        }
+      } else {
+        let res = await fetchUnLikeVideo(items.id);
+        if (res && res?.data?.likes_count) {
+          setCountLike(res.data.likes_count);
+        }
+      }
     } else {
       store.dispatch(openModalLogin());
     }
@@ -92,7 +108,7 @@ function Interactions({ items }) {
         >
           <HeartIcon className={interactionHeart ? "text-red-500" : ""} />
         </button>
-        <span>{items.likes_count}</span>
+        <span>{countLike}</span>
       </div>
       <div className="flex flex-col items-center mt-6">
         <button className="p-3 bg-gray-200 rounded-full mb-3">

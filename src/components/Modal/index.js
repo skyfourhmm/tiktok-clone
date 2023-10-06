@@ -8,7 +8,6 @@ import { store } from "../../redux/store";
 
 function Modal({
   isVisible = false,
-  onClose,
   children,
   firtPageModal,
   hideback,
@@ -20,11 +19,15 @@ function Modal({
   if (localStorage.getItem("token")) return null;
 
   if (!isVisible) return null;
+  if (isVisible) {
+    document.querySelector("body").style.overflow = "hidden";
+  }
 
   const handleClose = () => {
     setTimeout(() => {
       // onClose();
       store.dispatch(closeModalLogin());
+      document.querySelector("body").style.overflow = "";
       firtPageModal(0);
       sethideback(false);
       setHideAnimation(false);

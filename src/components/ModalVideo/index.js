@@ -6,8 +6,7 @@ import { faPlay } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 
 function Videos({ items }) {
-
-  console.log(items)
+  console.log(items);
 
   return (
     <div className="flex h-screen">
@@ -23,7 +22,7 @@ function Videos({ items }) {
               type="video/mp4"
             />
         </video> */}
-        <VideoContent inside/>
+        <VideoContent inside />
         <div className="absolute top-0 z-30 flex justify-between w-full px-4 mt-6">
           <ButtonCircle leftIcon={<CloseIcon />}></ButtonCircle>
           <ButtonCircle leftIcon={<FlagIcon width="16" height="16" />}>
@@ -42,7 +41,7 @@ function Videos({ items }) {
           ></ButtonCircle>
         </div>
       </div>
-      <div className="basis-1/3">navigate</div>
+      <div className="basis-1/3 bg-white">navigate</div>
     </div>
   );
 }

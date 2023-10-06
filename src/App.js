@@ -7,6 +7,7 @@ import { fetchUserCurrent } from "./apiServices/userServices.js";
 import ModalLogIn from "./components/Modal/modalLogIn";
 import { store } from "./redux/store";
 import { connect } from "react-redux";
+import Videos from "./Videos";
 
 function App(props) {
   // thực hiện gọi data currentuser
@@ -66,6 +67,7 @@ function App(props) {
       </Router>
 
       <ModalLogIn isVisible={props.state} />
+      {/* <Videos /> */}
     </>
   );
 }

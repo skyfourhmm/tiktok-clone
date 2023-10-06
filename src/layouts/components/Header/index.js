@@ -69,10 +69,6 @@ function Header() {
       icon: <FontAwesomeIcon icon={faKeyboard} />,
       title: "Keyboard shortcuts",
     },
-    {
-      icon: <FontAwesomeIcon icon={faCircleHalfStroke} />,
-      title: "Dark mode",
-    },
   ];
 
   const Menu_User = [
@@ -97,6 +93,11 @@ function Header() {
       to: "/settings",
     },
     ...MENU_ITEM,
+    {
+      icon: <FontAwesomeIcon icon={faCircleHalfStroke} />,
+      title: "Dark mode",
+      toggle: true,
+    },
     {
       icon: <FontAwesomeIcon icon={faArrowRightFromBracket} />,
       title: "Log Out",

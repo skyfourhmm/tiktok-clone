@@ -1,29 +1,26 @@
 import React, { useEffect, useState, useRef } from "react";
 import { fetchListVideo } from "../../apiServices/userServices.js";
-import VideoInfor from './VideoInfo'
+import VideoInfor from "./VideoInfo";
 import Image from "../Image";
 
-
-import InfiniteScroll from 'react-infinite-scroll-component';
+import InfiniteScroll from "react-infinite-scroll-component";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 
 function Video() {
-
   // ấn xuống sẽ thực hiện scroll theo
   useEffect(() => {
     document.getElementById("focus").focus();
   }, []);
 
   // lấy data video
-  var randomNumber = Math.floor(Math.random() * 30) + 1;
+  var randomNumber = Math.floor(Math.random() * 32) + 1;
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [page, setPage] = useState(randomNumber);
-  
-  const [isClient, setIsClient] = useState(false); 
 
+  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
     setIsClient(true);
@@ -34,19 +31,19 @@ function Video() {
     setError(null);
 
     try {
-      let data = await fetchListVideo('for-you', page);
+      let data = await fetchListVideo("for-you", page);
 
-      setItems(prevItems => [...prevItems, ...data.data]);
-      if(page > data.meta.pagination.total_pages) {
-        setPage(1)
+      setItems((prevItems) => [...prevItems, ...data.data]);
+      if (page > data.meta.pagination.total_pages) {
+        setPage(1);
       }
-      setPage(prevPage => prevPage + 1);
-    } catch(error) {
-      setError(error)
+      setPage((prevPage) => prevPage + 1);
+    } catch (error) {
+      setError(error);
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
-  }
+  };
 
   useEffect(() => {
     if (isClient) {
@@ -54,25 +51,30 @@ function Video() {
     }
   }, [isClient]);
 
-  
-
   return (
     <InfiniteScroll
-    dataLength={items.length}
-    next={fetchData}
-    hasMore={true} // Replace with a condition based on your data source
-    loader={isLoading && <FontAwesomeIcon className="animate-spin" icon={faSpinner}/>}
-    endMessage={<p>No more data to load.</p>}
+      dataLength={items.length}
+      next={fetchData}
+      hasMore={true} // Replace with a condition based on your data source
+      loader={
+        isLoading && (
+          <FontAwesomeIcon className="animate-spin" icon={faSpinner} />
+        )
+      }
+      endMessage={<p>No more data to load.</p>}
     >
-    <div id="focus" className="ml-[111px]">
-      {items &&
-        items.map((items, index) => (
-          <div key={items.id} className="flex mb-28 ">
-            <Image large src={items.user.avatar} />
-            <VideoInfor items={items}/>
-          </div>
-        ))}
-    </div>
+      <div id="focus" className="ml-[111px]">
+        {items &&
+          items.map((items, index) => (
+            <>
+              <div key={items.id} className="flex mb-28 ">
+                <Image large src={items.user.avatar} />
+                <VideoInfor items={items} />
+              </div>
+              <div className="w-full h-[1px] bg-gray-200 my-10"></div>
+            </>
+          ))}
+      </div>
     </InfiniteScroll>
   );
 }

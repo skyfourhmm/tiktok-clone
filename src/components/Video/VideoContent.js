@@ -1,14 +1,8 @@
 import { useRef, useState, useEffect } from "react";
 import useElementOnScreen from "../../hooks/useElementOnScreen";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faPause,
-  faPlay,
-  faVolumeXmark,
-  faVolumeHigh,
-} from "@fortawesome/free-solid-svg-icons";
 import ButtonCircle from "../ButtonCircle";
+import { MutedIcon, PauseIcon, PlayIcon, UnMutedIcon } from "../Icons";
 
 function VideoContent({ items, inside }) {
   const videoRef = useRef(null);
@@ -24,12 +18,7 @@ function VideoContent({ items, inside }) {
         videoRef.current.play();
       }
     } catch (error) {
-      if (
-        error.message ===
-        "The play() request was interrupted by a call to pause()."
-      ) {
-        console.log(error.message);
-      }
+      this.setState({ error });
     }
   };
 
@@ -57,12 +46,7 @@ function VideoContent({ items, inside }) {
           }
         }
       } catch (error) {
-        if (
-          error.message ===
-          "The play() request was interrupted by a call to pause()."
-        ) {
-          console.log(error.message);
-        }
+        this.setState({ error });
       }
     };
     handlePlayVideo();
@@ -109,7 +93,7 @@ function VideoContent({ items, inside }) {
         <>
           {!hidePlay && (
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 text-white text-9xl">
-              <FontAwesomeIcon icon={faPlay} />
+              <PlayIcon />
             </div>
           )}
 
@@ -120,12 +104,14 @@ function VideoContent({ items, inside }) {
             <ButtonCircle
               leftIcon={
                 isMuted && (
-                  <FontAwesomeIcon className="text-4xl" icon={faVolumeXmark} />
+                  <MutedIcon />
+                  // <FontAwesomeIcon className="text-4xl" icon={faVolumeXmark} />
                 )
               }
               rightIcon={
                 !isMuted && (
-                  <FontAwesomeIcon className="text-4xl" icon={faVolumeHigh} />
+                  <UnMutedIcon />
+                  // <FontAwesomeIcon className="text-4xl" icon={faVolumeHigh} />
                 )
               }
             ></ButtonCircle>
@@ -137,15 +123,15 @@ function VideoContent({ items, inside }) {
             className="absolute bottom-0 left-0 text-white ml-6 mb-6 cursor-pointer"
             onClick={handleHidePlay}
           >
-            {hidePlay && <FontAwesomeIcon icon={faPause} />}
-            {!hidePlay && <FontAwesomeIcon icon={faPlay} />}
+            {hidePlay && <PlayIcon />}
+            {!hidePlay && <PauseIcon />}
           </div>
           <div
             className="absolute bottom-0 right-0 text-white mr-6 mb-6 cursor-pointer"
             onClick={() => toggleMute()}
           >
-            {isMuted && <FontAwesomeIcon icon={faVolumeXmark} />}
-            {!isMuted && <FontAwesomeIcon icon={faVolumeHigh} />}
+            {isMuted && <MutedIcon />}
+            {!isMuted && <UnMutedIcon />}
           </div>
         </>
       )}

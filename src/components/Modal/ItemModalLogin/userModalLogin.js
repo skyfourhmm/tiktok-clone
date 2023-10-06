@@ -22,6 +22,7 @@ function UserModalLogin({ isVisible }) {
   const [passwordValue, setPasswordValue] = useState("");
   const [eye, setEye] = useState(true);
   const [loadingApi, setLoadingApi] = useState(false);
+  const [isFailLogin, setIsFailLogin] = useState(false);
 
   const handleEmailChange = (value) => {
     setEmailValue(value);
@@ -57,10 +58,10 @@ function UserModalLogin({ isVisible }) {
       login(res.data);
     }
 
-    if (res && res.status === 400) {
+    if (res && (res.status === 422 || res.status === 401)) {
       // thông báo lỗi ở đây
+      setIsFailLogin(true);
     }
-
     setLoadingApi(false);
   };
 
@@ -76,17 +77,27 @@ function UserModalLogin({ isVisible }) {
           type="email"
           onValueChange={handleEmailChange}
         />
-        <Input
-          placeholder="Password"
-          type={eye ? "password" : "text"}
-          onValueChange={handlePasswordChange}
-        />
-        <div
-          className="absolute bottom-[51%] right-6 cursor-pointer"
-          onClick={handleEye}
-        >
-          {eye ? <CloseEyeIcon /> : <OpentEyeIcon />}
+
+        <div className="relative">
+          <Input
+            placeholder="Password"
+            type={eye ? "password" : "text"}
+            isFail={isFailLogin}
+            onValueChange={handlePasswordChange}
+          />
+          <div
+            className="absolute bottom-[20%] right-6 cursor-pointer"
+            onClick={handleEye}
+          >
+            {eye ? <CloseEyeIcon /> : <OpentEyeIcon />}
+          </div>
         </div>
+
+        {isFailLogin && (
+          <span className="mt-3 text-lg text-red-400">
+            User account or password incorrect
+          </span>
+        )}
         <span className="my-4 text-lg hover:underline cursor-pointer">
           Forgot password?
         </span>
